@@ -21,7 +21,7 @@ def system_path():
 
 
 @pytest.yield_fixture
-def system():
+def system(system_path):
     '''
     yields the contents of the system.evtx test file.
     the returned value is a memory map of the contents,
@@ -30,8 +30,7 @@ def system():
     Returns:
       mmap.mmap: the contents of the test file.
     '''
-    p = system_path()
-    with open(p, 'rb') as f:
+    with open(system_path, 'rb') as f:
         with contextlib.closing(mmap.mmap(f.fileno(), 0,
                                           access=mmap.ACCESS_READ)) as buf:
             yield buf
@@ -52,7 +51,7 @@ def security_path():
 
 
 @pytest.yield_fixture
-def security():
+def security(security_path):
     '''
     yields the contents of the security.evtx test file.
     the returned value is a memory map of the contents,
@@ -61,8 +60,7 @@ def security():
     Returns:
       mmap.mmap: the contents of the test file.
     '''
-    p = security_path()
-    with open(p, 'rb') as f:
+    with open(security_path, 'rb') as f:
         with contextlib.closing(mmap.mmap(f.fileno(), 0,
                                           access=mmap.ACCESS_READ)) as buf:
             yield buf
